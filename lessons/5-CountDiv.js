@@ -1,9 +1,9 @@
 function solution(A, B, K) {
-    let count = 0;
-    for (let number = A; number <= B; number++) {
-        if (number % K === 0) {
-            count++;
-        }
+    const ka = Math.floor(A / K);
+    const kb = Math.floor(B / K);
+    let result = kb - ka;
+    if (A % K === 0) {
+        result++;
     }
-    return count;
+    return result;
 }
