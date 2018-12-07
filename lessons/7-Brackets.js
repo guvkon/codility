@@ -1,40 +1,26 @@
 function solution(S) {
+    const A = [];
     const map = {
-        "(": ")",
-        "{": "}",
-        "[": "]"
-    }
-    
-    const isNested = (S) => {
-        if (S.length === 0) {
-            return true;
+        ')': '(',
+        ']': '[',
+        '}': '{'
+    };
+    for (let i = 0; i < S.length; i++) {
+        switch (S[i]) {
+            case '(':
+            case '[':
+            case '{':
+                A.push(S[i]);
+                break;
+            case ')':
+            case ']':
+            case '}':
+                const last = A.pop();
+                if (!last || map[S[i]] !== last) {
+                    return 0;
+                }
+                break;
         }
-        const closePosition = getClosePosition(S);
-        if (closePosition === false) {
-            return false;
-        }
-        return isNested(S.slice(1, closePosition)) && isNested(S.slice(closePosition + 1));
     }
-    
-    const getClosePosition = (S) => {
-        const open = S[0];
-        const close = map[open];
-        let counter = 0;
-        for (let i = 1; i < S.length; i++) {
-            if (counter === 0 && S[i] === close) {
-                return i;
-            }
-            switch (S[i]) {
-                case open:
-                    counter++;
-                    break;
-                case close:
-                    counter--;
-                    break;
-            }
-        }
-        return false;
-    }
-    
-    return Number(isNested(S));
+    return A.length === 0 ? 1 : 0;
 }
