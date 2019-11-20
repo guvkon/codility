@@ -1,5 +1,5 @@
 solution :: (Integral a) => a -> a
-solution x = snd (foldl binarygap (0, 0) (binary x))
+solution = snd . foldl binarygap (0, 0) . binary
 
 binary :: (Integral a) => a -> [a]
 binary 0 = [0]

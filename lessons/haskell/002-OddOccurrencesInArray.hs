@@ -1,10 +1,4 @@
-quicksort :: (Ord a) => [a] -> [a]
-quicksort [] = []
-quicksort (x:xs) =
-    let smallerSorted = quicksort [a | a <- xs, a <= x]
-        biggerSorted = quicksort [a | a <- xs, a > x]
-    in smallerSorted ++ [x] ++ biggerSorted
+import Data.List
 
--- solution :: (Eq a, Ord a) => [a] -> a
--- solution [x] = x
--- solution x = if (head x) `elem` (tail x) then
+solution :: (Integral a) => [a] -> a
+solution xs = head $ foldl1 (\acc xs -> if odd (length xs) then xs else acc) (group $ sort xs)
